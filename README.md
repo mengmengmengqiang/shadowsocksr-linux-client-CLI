@@ -3,7 +3,30 @@
 
 ## 安装步骤
 
-* Linux安装shadowsocksR Python客户端
+* 安装shadowsocksR服务端
+
+> [参考链接](https://shadowsocks.be/9.html)
+
+    #在`代理服务器`里下载傻瓜式安装脚本`shadowsocksR.sh`，或者文件夹里我们已经为你下载好的安装脚本`shadowsocksR.sh`。
+    wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh
+    chmod +x shadowsocksR.sh
+    ./shadowsocksR.sh 2>&1 | tee shadowsocksR.log
+
+    #使用命令
+    #启动
+    /etc/init.d/shadowsocks start
+    #停止
+    /etc/init.d/shadowsocks stop
+    #重启
+    /etc/init.d/shadowsocks restart
+    #状态
+    /etc/init.d/shadowsocks status
+
+    #配置文件路径：/etc/shadowsocks.json
+    #日志文件路径：/var/log/shadowsocks.log
+    #代码安装目录：/usr/local/shadowsocks
+
+* `本地`Linux安装shadowsocksR Python客户端
 
 > [参考链接](https://www.djangoz.com/2017/08/16/linux_setup_ssr/)
 
