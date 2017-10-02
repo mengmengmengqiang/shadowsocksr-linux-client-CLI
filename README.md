@@ -19,7 +19,7 @@
     #安装polipo
     sudo apt-get install polipo
     #修改polipo的配置文件`/etc/polipo/config`:
-    logSyslog = true
+    `logSyslog = true
     logFile = /var/log/polipo/polipo.log
 
     proxyAddress = "0.0.0.0"
@@ -32,7 +32,7 @@
 
     serverMaxSlots = 64
     serverSlots = 16
-    serverSlots1 = 32
+    serverSlots1 = 32`
 
     #重启polipo服务
     sudo /etc/init.d/polipo restart
