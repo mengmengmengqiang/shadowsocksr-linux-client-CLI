@@ -109,6 +109,8 @@ Linux上shadowsocksr Python客户端的配置
     [Install]
     # 当服务开机启动后，会放入什么文件夹，影响启动顺序
     WantedBy=multi-user.target
+    # 保存文件退出并运行命令刷新守护进程
+    sudo systemctl daemon-reload
 
 > 之后可使用如下命令来使用ssr服务
 
