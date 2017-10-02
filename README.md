@@ -1,5 +1,5 @@
 # shadowsocksr-linux-client-CLI
-在Linux上面使用shadowsocksr python客户端
+在Linux上面使用shadowsocksr Python客户端
 
 ## 安装步骤
 
