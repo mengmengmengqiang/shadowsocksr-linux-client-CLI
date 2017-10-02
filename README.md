@@ -3,10 +3,11 @@
 
 ## 安装步骤
 
-* [在linux环境安装shadowsocksR客户端](https://www.djangoz.com/2017/08/16/linux_setup_ssr/)
+* 在linux环境安装shadowsocksR客户端
 
+> [参考链接](https://www.djangoz.com/2017/08/16/linux_setup_ssr/)
 
-    wget <p>http://www.djangoz.com/linux_setup_ssr/ssr</p> #ssr脚本已经被下载到git文件夹中
+    wget http://www.djangoz.com/linux_setup_ssr/ssr #ssr脚本已经被下载到git文件夹中
     sudo mv ssr /usr/local/bin
     sudo chmod 766 /usr/local/bin/ssr
     ssr install
