@@ -38,11 +38,12 @@ Linux上shadowsocksr Python客户端的配置
     ssr install
     ssr config # 目前只能配置单服务器版本，多服务器版本以后再添加
 
-* 配置全局代理（可选）
-	
-> shadowsocks以及shadowsocksR服务端本身只能提供socks5代理，但是多数应用使用http/https协议，所以需要一个代理软件把socks5协议的流量转换成http/https的流量，下面是一种开启全局代理的方式。
+* 配置本地代理服务器[polipo](https://wiki.archlinux.org/index.php/Polipo_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))配合`proxychains`在终端使用代理。
 
-    # 为了让整个系统都走sahdowsocks通道，需要配置全局代理，这里我们使用polipo软件。
+> 目前只在ubuntu16.10测试通过，ubuntu14.04以后大约都是可以的。CentOS官方源没有polipo软件包，需要编译安装或者添加第三方软件源。是的虽然polipo停止维护了但是这里我依然使用他，没有问什么。
+	
+>> shadowsocks以及shadowsocksR服务端本身只能提供socks5代理，但是多数应用使用http/https协议，所以需要一个代理软件把socks5协议的流量转换成http/https的流量，下面是一种小而快的缓存web代理服务器的安装方式。
+
     # 安装polipo
     sudo apt-get install polipo
     # 修改polipo的配置文件`/etc/polipo/config`:
@@ -61,16 +62,46 @@ Linux上shadowsocksr Python客户端的配置
     serverSlots = 16
     serverSlots1 = 32
 
-    # 重启polipo服务
-    sudo /etc/init.d/polipo restart
-    # 为终端配置http/https代理
-    export http_proxy="http://127.0.0.1:8123/"
-    export https_proxy="https://127.0.0.1:8123/"
-    # 接着测试能不能翻墙,如果返回网页源码，则表示配置成功
-    curl www.google.com
+    # 开启polipo服务
+    sudo systemctl enable polipo
 
-    # 注意事项:
-    # 服务重启之后ssr start 和export http_proxy="http://127.0.0.1:8123/" && export https_proxy="https://127.0.0.1:8123/"要同时执行。
+    # 重启polipo服务
+    sudo systemctl restart polipo
+
+    #因为之后会使用proxychains自动切换代理地址，所以不需要在终端中设置全局变量。
+    #export http_proxy="http://127.0.0.1:8123/" # 不再这样设置
+    #export https_proxy="https://127.0.0.1:8123/" # 不再这样设置
+
+    # 安装proxychains
+    
+    # 安装git
+    sudo apt-get install -y git
+
+    # 下载proxychains源码
+    git clone https://github.com/rofl0r/proxychains-ng.git
+    
+    # 切换目录
+    cd proxychains-ng
+
+    # 编译
+    ./configure
+    make && make install
+
+    # 复制配置文件
+    cp ./src/proxychains.conf /etc/proxychains.conf
+
+    # 删除源码（可选）
+    cd .. && rm -rf proxychains-ng
+
+    # 编辑配置文件
+    vim /etc/proxychains.conf
+    # 配置如下,我们使用polipo的代理端口8123,用户为**root**，**pass**类型为**secret**。
+    [ProxyList]
+    #type    ip        port [user pass]
+    http     127.0.0.1 8123 root secret
+    
+    # 接着测试IP地址，若成功则返回地址当为代理服务器的地址而不是真实地址。
+    sudo proxychains4 curl -i http://ip.cn
 
 * 单独为Chrome浏览器配置代理软件SwitchyOmega
 
