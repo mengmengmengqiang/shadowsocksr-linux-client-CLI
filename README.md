@@ -49,7 +49,7 @@ Linux上shadowsocksr Python客户端的配置
     # 修改polipo的配置文件`/etc/polipo/config`:
     logSyslog = true
     logFile = /var/log/polipo/polipo.log
-
+ 
     proxyAddress = "0.0.0.0"
 
     socksParentProxy = "127.0.0.1:1080"
