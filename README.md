@@ -73,7 +73,6 @@ Linux上shadowsocksr Python客户端的配置
     #export https_proxy="https://127.0.0.1:8123/" # 不再这样设置
 
     # 安装proxychains
-    
     # 安装git
     sudo apt-get install -y git
 
@@ -95,7 +94,7 @@ Linux上shadowsocksr Python客户端的配置
 
     # 编辑配置文件
     vim /etc/proxychains.conf
-    # 配置如下,我们使用polipo的代理端口8123,用户为**root**，**pass**类型为**secret**。
+    # 配置如下,我们使用polipo的代理端口8123,用户为root，pass类型为secret。
     [ProxyList]
     #type    ip        port [user pass]
     http     127.0.0.1 8123 root secret
