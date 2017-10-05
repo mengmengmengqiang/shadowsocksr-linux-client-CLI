@@ -1,5 +1,5 @@
 # shadowsocksr-linux-client-CLI
-Linux(ubuntu 16.10)上shadowsocksr Python客户端的配置
+Linux(`ubuntu 16.10`)上shadowsocksr Python客户端的配置
 
 ## 安装步骤
 
