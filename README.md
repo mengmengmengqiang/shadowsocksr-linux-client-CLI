@@ -108,7 +108,7 @@ Linux(`ubuntu 16.10`)上shadowsocksr Python客户端的配置
 
 > 在上面的链接里下载适合自己浏览器版本的`SwitchyOmega`安装文件，打开Chrome浏览器地址栏输入`chrome://extensions`,打开文件管理器，将刚刚下载的`*.crx`文件用鼠标拖入浏览器中`chrome://extensions`页面下开始安装。本教程附带一份SwitchyOmega.crx，如果不能安装则自己下载。
 
-> 进入[SwitchyOmega设置教程](https://www.switchyomega.com/settings.html)，按照教程设置`SwitchyOmega`，注意需要SSR服务正确配置并开启。之后Chrome就可以正常科学上网了。如果配置文件不能下载，本文档带有**GFWList.bak**备份,自行添加使用。
+> 进入[SwitchyOmega设置教程](https://www.switchyomega.com/settings.html)，按照教程设置`SwitchyOmega`，注意需要SSR服务正确配置并开启。之后Chrome就可以正常科学上网了。如果配置文件不能下载，本文档带有[GFWList.bak](https://github.com/mengmengmengqiang/shadowsocksr-linux-client-CLI/blob/master/GFWList.bak)备份,自行下载使用。
 
 * 设置SSR服务开机自动启动
 
