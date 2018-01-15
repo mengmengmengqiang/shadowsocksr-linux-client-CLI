@@ -41,7 +41,7 @@ Linux(`ubuntu 16.10`)上shadowsocksr Python客户端的配置，其实ssr部分�
 * 配置本地代理服务器[polipo](https://wiki.archlinux.org/index.php/Polipo_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))配合`proxychains`在终端使用代理。
 
 > 目前只在ubuntu16.10测试通过，ubuntu14.04以后大约都是可以的。CentOS官方源没有polipo软件包，需要编译安装或者添加第三方软件源。是的虽然polipo停止维护了但是这里我依然使用他，没有问什么。
-	
+
 >> shadowsocks以及shadowsocksR服务端本身只能提供socks5代理，但是多数应用使用http/https协议，所以需要一个代理软件把socks5协议的流量转换成http/https的流量，下面是一种小而快的缓存web代理服务器的安装方式。
 
     # 安装polipo
@@ -49,7 +49,7 @@ Linux(`ubuntu 16.10`)上shadowsocksr Python客户端的配置，其实ssr部分�
     # 修改polipo的配置文件`/etc/polipo/config`:
     logSyslog = true
     logFile = /var/log/polipo/polipo.log
- 
+
     proxyAddress = "0.0.0.0"
 
     socksParentProxy = "127.0.0.1:1080"
@@ -73,12 +73,15 @@ Linux(`ubuntu 16.10`)上shadowsocksr Python客户端的配置，其实ssr部分�
     #export https_proxy="https://127.0.0.1:8123/" # 不再这样设置
 
     # 安装proxychains
+    # 方法有两种，第一种是直接从软件源下载proxychains4-ng，这种安装方法不用自己复制配置文件。
+    sudo apt-get install proxychains4-ng -y
+    # 第二种是自己编译安装并且搞定配置文件，这个方法适用于无法从软件源里下载到这个软件的环境
     # 安装git
     sudo apt-get install -y git
 
     # 下载proxychains源码
     git clone https://github.com/rofl0r/proxychains-ng.git
-    
+
     # 切换目录
     cd proxychains-ng
 
@@ -98,7 +101,7 @@ Linux(`ubuntu 16.10`)上shadowsocksr Python客户端的配置，其实ssr部分�
     [ProxyList]
     #type    ip        port [user pass]
     http     127.0.0.1 8123 root secret
-    
+
     # 接着测试IP地址，若成功则返回地址当为代理服务器的地址而不是真实地址。
     sudo proxychains4 curl -i http://ip.cn
 
@@ -116,12 +119,12 @@ Linux(`ubuntu 16.10`)上shadowsocksr Python客户端的配置，其实ssr部分�
 
     # 创建服务控制文件
     vim /lib/systemd/system/ssr.service
-    
+
     # 服务控制文件内容：
     [Unit]
     # 描述服务
     Description=shadowsocksR CLI client
-    # 用于指定服务启动的前置条件 
+    # 用于指定服务启动的前置条件
     After=network.target
     # 帮助文件的地址如http://baidu.com/ ，可缺省
     Documentation=https://github.com/mengmengmengqiang/shadowsocksr-linux-client-CLI
@@ -134,7 +137,7 @@ Linux(`ubuntu 16.10`)上shadowsocksr Python客户端的配置，其实ssr部分�
     ExecStart=/usr/bin/python /usr/local/share/shadowsocksr/shadowsocks/local.py --pid-file /var/run/shadowsocks.pid -d start -c /usr/local/share/shadowsocksr/config.json
     # 服务终止命令，可缺省
     ExecStop=/usr/bin/python /usr/local/share/shadowsocksr/shadowsocks/local.py --pid-file /var/run/shadowsocks.pid -d stop -c /usr/local/share/shadowsocksr/config.json
-    
+
     # 用来定义如何启动，以及是否开机启动
     [Install]
     # 当服务开机启动后，会放入什么文件夹，影响启动顺序
